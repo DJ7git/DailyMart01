@@ -1,0 +1,41 @@
+{% extends 'aindex.html' %} {% block content2 %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">List of Orders</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>User Name</th>
+          <th>User Email</th>
+          <th>User Phone</th>
+          <th>Product Image</th>
+          <th>Product Price</th>
+          <th>Product Quantity</th>
+          <th>Total Cost</th>          
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in orderdatainDB %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.usercheckout.dbusername}}</td>
+          <td>{{i.usercheckout.dbusermail}}</td>
+          <td>{{i.usercheckout.dbuserphone}}</td>
+          <td>{{i.usercart.product.productname}}</td>
+          <td>{{i.usercart.product.productprice}}</td>
+          <td>{{i.usercart.quantity}}</td>
+          <td>{{i.usercart.total}}</td>          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock %} {% block content1 %} {% endblock %} {% block content3 %} {% endblock %}

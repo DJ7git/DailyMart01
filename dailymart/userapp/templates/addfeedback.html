@@ -1,0 +1,76 @@
+{% extends 'userindex.html' %} {% block content1 %} {% endblock %} {% block content2 %}
+<!-- Single Product Start -->
+<br />
+<br />
+<div class="container-fluid py-5 mt-5">
+  <div class="container py-5">
+    <div class="row g-4 mb-5">
+      <div class="col-12">
+        <div class="row g-4 border border-5">
+          {% if 'u_id' in request.session %}
+          <form action="{% url 'getfeedback' %}" method="POST">
+            {% csrf_token %}
+            <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+            <div class="row g-4">
+              <div class="col-lg-6">
+                <div class="border-bottom rounded">
+                  <label for="productname">User Name</label>
+                  <input
+                    type="text"
+                    class="form-control border-0 me-4"
+                    name="feedbackuser"
+                    id="feedbackuser"
+                    value="{{request.session.username_u}}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="border-bottom rounded">
+                  <label for="productname">User Mail</label>
+                  <input
+                    type="email"
+                    class="form-control border-0"
+                    name="feedbackmail"
+                    id="feedbackmail"
+                    value="{{request.session.email_u}}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="border-bottom rounded my-4">
+                  <input
+                    type="text"
+                    class="form-control border-1 bg-light"
+                    cols="30"
+                    rows="8"
+                    placeholder="Add Your Review *"
+                    spellcheck="false"
+                    name="feedbackreview"
+                    id="feedbackreview"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12 font-weight-bold">
+                <div class="d-flex justify-content-center py-3 mb-5 font-weight-bold">
+                  <button
+                    type="submit"
+                    class="btn border border-secondary text-dark rounded-pill px-4 py-3 bg-primary"
+                  >
+                    Submit Feedback
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+          {% else %}
+          <h3><a href="{% url 'userlogin' %}">Login</a> to provide feedback</h3>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Single Product End -->
+{% endblock %}

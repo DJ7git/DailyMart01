@@ -1,0 +1,33 @@
+{% extends 'aindex.html' %} {% block content2 %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">List of Users</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th style="width: 300px">Username</th>
+          <th>Mail</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in allregisteredusersinDB %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.dbusername}}</td>
+          <td>{{i.dbusermail}}</td>
+          <td>{{i.dbuserphone}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock %} {% block content1 %} {% endblock %} {% block content3 %} {% endblock %}

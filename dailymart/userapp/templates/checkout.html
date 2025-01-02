@@ -1,0 +1,545 @@
+{% extends 'userindex.html' %} {% block content1 %} {% endblock %} {% block content2 %}
+<!-- Single Product Start -->
+<br />
+<br />
+<br />
+
+<div class="container-fluid py-5">
+  <div class="container py-5">
+    <h1 class="mb-4">Billing details</h1>
+    {% if 'u_id' in request.session %}
+    <form
+      action="{% url 'checkoutdata' %}"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      {% csrf_token %}
+      <div class="row g-5">
+        <!-- content1 deleted from here -->
+        <div class="col-md-12 col-lg-6 col-xl-7">
+          <div class="row">
+            <div class="col-md-12 col-lg-6">
+              <div class="form-item w-100">
+                <label class="form-label my-3" for="username">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  placeholder=""
+                  value="{{request.session.username_u}}"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Address <sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Town/City<sup>*</sup></label>
+            <input type="text" class="form-control" name="city" id="city" />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Postcode/Zip<sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="pincode"
+              id="pincode"
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Country<sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="country"
+              id="country"
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Mobile<sup>*</sup></label>
+            <input
+              type="tel"
+              class="form-control"
+              value="{{request.session.phonenumber_u}}"
+              disabled
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Email Address<sup>*</sup></label>
+            <input
+              type="email"
+              class="form-control"
+              value="{{request.session.email_u}}"
+              disabled
+            />
+          </div>
+          <div class="form-check my-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="Account-1"
+              name="Accounts"
+              value="Accounts"
+            />
+            <label class="form-check-label" for="Account-1"
+              >Create an account?</label
+            >
+          </div>
+        </div>
+        <!-- content1 deleted till here -->
+        <!-- content2 deleted from here -->
+        <div class="col-md-12 col-lg-6 col-xl-5">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Products</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in cart_items %}
+                <tr>
+                  <td class="py-5">
+                    <img
+                      src="{{i.product.productimage.url}}"
+                      class="img-fluid me-5 rounded-circle"
+                      style="width: 80px; height: 80px"
+                      alt=""
+                    />
+                  </td>
+                  <td class="py-5">{{i.product.productname}}</td>
+                  <td class="py-5">$ {{i.product.productprice}}</td>
+                  <td class="py-5">{{i.quantity}}</td>
+                  <td class="py-5">${{i.total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <th scope="row" style="vertical-align: middle"></th>
+                  <td class="py-5" style="vertical-align: middle">
+                    <p class="mb-0 text-dark py-4">Subtotal</p>
+                  </td>
+                  <td
+                    colspan="3"
+                    class="py-5 mb-0 text-dark"
+                    style="vertical-align: middle; text-align: right"
+                  >
+                    <label class="form-check-label" for="Shipping-2"
+                      >$ {{total_sum}}</label
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" style="vertical-align: middle"></th>
+                  <td class="py-5" style="vertical-align: middle">
+                    <p class="mb-0 text-dark py-4">Shipping</p>
+                  </td>
+                  <td
+                    colspan="3"
+                    class="py-5 mb-0 text-dark"
+                    style="vertical-align: middle; text-align: right"
+                  >
+                    <label class="form-check-label" for="Shipping-2"
+                      >Flat rate: $3.00</label
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td class="py-5">
+                    <p class="mb-0 text-dark text-uppercase py-3">TOTAL</p>
+                  </td>
+                  <td class="py-5"></td>
+                  <td class="py-5"></td>
+                  <td class="py-5">
+                    <div class="py-3 border-bottom border-top">
+                      <p class="mb-0 text-dark">$ {{total_sum | add:3}}</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Transfer-1"
+                  name="Transfer"
+                  value="Transfer"
+                />
+                <label class="form-check-label" for="Transfer-1"
+                  >Direct Bank Transfer</label
+                >
+              </div>
+              <p class="text-start text-dark">
+                Make your payment directly into our bank account. Please use
+                your Order ID as the payment reference. Your order will not be
+                shipped until the funds have cleared in our account.
+              </p>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Payments-1"
+                  name="Payments"
+                  value="Payments"
+                />
+                <label class="form-check-label" for="Payments-1"
+                  >Check Payments</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Delivery-1"
+                  name="Delivery"
+                  value="Delivery"
+                />
+                <label class="form-check-label" for="Delivery-1"
+                  >Cash On Delivery</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Paypal-1"
+                  name="Paypal"
+                  value="Paypal"
+                />
+                <label class="form-check-label" for="Paypal-1">Paypal</label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center pt-4"
+          >
+            <input
+              class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
+              type="submit"
+              name="submit"
+              id="submit"
+              value="Place Order"
+            />
+          </div>
+        </div>
+
+        <!-- content2 deleted till here -->
+      </div>
+    </form>
+
+    {% else %}
+
+    <form
+      action="{% url 'checkoutdata' %}"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      {% csrf_token %}
+      <div class="row g-5">
+        <!-- content1 deleted from here -->
+        <div class="col-md-12 col-lg-6 col-xl-7">
+          <div class="row">
+            <div class="col-md-12 col-lg-6">
+              <div class="form-item w-100">
+                <label class="form-label my-3" for="firstname">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  placeholder=""
+                  value="{{request.session.dbusername}}"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Address <sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Town/City<sup>*</sup></label>
+            <input type="text" class="form-control" name="city" id="city" required/>
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Postcode/Zip<sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="pincode"
+              id="pincode"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Country<sup>*</sup></label>
+            <input
+              type="text"
+              class="form-control"
+              name="country"
+              id="country"
+              required
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Mobile<sup>*</sup></label>
+            <input
+              type="tel"
+              class="form-control"
+              value="{{request.session.dbuserphone}}"
+            />
+          </div>
+          <div class="form-item">
+            <label class="form-label my-3">Email Address<sup>*</sup></label>
+            <input
+              type="email"
+              class="form-control"
+              value="{{request.session.dbusermail}}"
+            />
+          </div>
+          <div class="form-check my-3">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="Account-1"
+              name="Accounts"
+              value="Accounts"
+            />
+            <label class="form-check-label" for="Account-1"
+              >Create an account?</label
+            >
+          </div>
+        </div>
+        <!-- content1 deleted till here -->
+        <!-- content2 deleted from here -->
+        <div class="col-md-12 col-lg-6 col-xl-5">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Products</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in cart_items %}
+                <tr>
+                  <td class="py-5">
+                    <img
+                      src="{{i.product.productimage.url}}"
+                      class="img-fluid me-5 rounded-circle"
+                      style="width: 80px; height: 80px"
+                      alt=""
+                    />
+                  </td>
+                  <td class="py-5">{{i.product.productname}}</td>
+                  <td class="py-5">$ {{i.product.productprice}}</td>
+                  <td class="py-5">{{i.quantity}}</td>
+                  <td class="py-5">${{i.total}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <th scope="row"></th>
+                  <td class="py-5"></td>
+                  <td class="py-5"></td>
+                  <td class="py-5">
+                    <p class="mb-0 text-dark py-3">Subtotal</p>
+                  </td>
+                  <td class="py-5">
+                    <div class="py-3 border-bottom border-top">
+                      <p class="mb-0 text-dark">$ {{total_sum}}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td class="py-5">
+                    <p class="mb-0 text-dark py-4">Shipping</p>
+                  </td>
+                  <td colspan="3" class="py-5 mb-0 text-dark">
+                    <input
+                      type="checkbox"
+                      class="form-check-input bg-primary border-0"
+                      id="Shipping-2"
+                      name="Shipping-1"
+                      value="Shipping"
+                      checked
+                      disabled
+                    />
+                    <label class="form-check-label" for="Shipping-2"
+                      >Flat rate: $15.00</label
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td class="py-5">
+                    <p class="mb-0 text-dark text-uppercase py-3">TOTAL</p>
+                  </td>
+                  <td class="py-5"></td>
+                  <td class="py-5"></td>
+                  <td class="py-5">
+                    <div class="py-3 border-bottom border-top">
+                      <p class="mb-0 text-dark">$ {{total_sum | add:15}}</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Transfer-1"
+                  name="Transfer"
+                  value="Transfer"
+                />
+                <label class="form-check-label" for="Transfer-1"
+                  >Direct Bank Transfer</label
+                >
+              </div>
+              <p class="text-start text-dark">
+                Make your payment directly into our bank account. Please use
+                your Order ID as the payment reference. Your order will not be
+                shipped until the funds have cleared in our account.
+              </p>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Payments-1"
+                  name="Payments"
+                  value="Payments"
+                />
+                <label class="form-check-label" for="Payments-1"
+                  >Check Payments</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Delivery-1"
+                  name="Delivery"
+                  value="Delivery"
+                />
+                <label class="form-check-label" for="Delivery-1"
+                  >Cash On Delivery</label
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3"
+          >
+            <div class="col-12">
+              <div class="form-check text-start my-3">
+                <input
+                  type="checkbox"
+                  class="form-check-input bg-primary border-0"
+                  id="Paypal-1"
+                  name="Paypal"
+                  value="Paypal"
+                />
+                <label class="form-check-label" for="Paypal-1">Paypal</label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="row g-4 text-center align-items-center justify-content-center pt-4"
+          >
+            <input
+              class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary"
+              type="submit"
+              name="submit"
+              id="submit"
+              value="Place Order"
+            />
+          </div>
+        </div>
+
+        <!-- content2 deleted till here -->
+      </div>
+    </form>
+
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#quantity").on("change", function () {
+      var quantity = $("#quantity").val();
+      var price = $("#price").val();
+      var total = parseInt(quantity) * parseInt(price);
+      $("#total").val(total);
+    });
+  });
+</script>
+<!-- Single Product End -->
+{% endblock %}

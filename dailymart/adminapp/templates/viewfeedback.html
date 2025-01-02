@@ -1,0 +1,33 @@
+{% extends 'aindex.html' %} {% block content2 %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">List  of Feedback</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in feedbackdatainDB %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.feedbackuser}}</td>
+          <td>{{i.feedbackmail}}</td>
+          <td>{{i.feedbackreview}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock %} {% block content1 %} {% endblock %} {% block content3 %} {% endblock %}

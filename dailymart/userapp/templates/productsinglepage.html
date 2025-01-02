@@ -1,0 +1,139 @@
+{% extends 'userindex.html' %} {% block content1 %} {% endblock %} {% block content2 %}
+<!-- Single Product Start -->
+<div class="container-fluid py-5 mt-5">
+  <div class="container py-5">
+    <div class="row g-4 mb-5">
+      <div class="col-lg-12 col-xl-12">
+        {% for i in productdatainDB %}
+        <br />
+        <br />
+
+        <div class="row g-4 border border-5 pb-3 rounded shadow-sm">
+          <div class="col-lg-6">
+            <div class="border rounded">
+              <a href="#">
+                <img
+                  src="{{i.productimage.url}}"
+                  class="img-fluid rounded"
+                  alt="Image"
+                  style="width: 100%; height: auto; object-fit: cover"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <form action="{% url 'addtocart' id=i.id %}" method="POST">
+              {% csrf_token %}
+              <h4 class="fw-bold mb-3">{{i.productname}}</h4>
+              <p class="mb-3">
+                Category: <strong>{{i.productcategory}}</strong>
+              </p>
+              <h5 class="fw-bold mb-3">Price per unit: ${{i.productprice}}</h5>
+              <p class="mb-4">{{i.productdescription}}</p>
+
+              <div class="input-group mb-3">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="decreaseQuantity"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  class="form-control text-center"
+                  value="1"
+                  min="1"
+                  max="100"
+                  id="quantity"
+                  name="quantity"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="increaseQuantity"
+                >
+                  +
+                </button>
+              </div>
+              <div class="mb-3">
+                <label for="total" class="form-label">Total</label>
+                <input
+                  type="number"
+                  class="form-control text-center"
+                  id="total"
+                  name="total"
+                  value="{{i.productprice}}"
+                />
+              </div>
+              <input
+                type="hidden"
+                id="price"
+                name="price"
+                value="{{i.productprice}}"
+              />
+              {% if 'u_id' in request.session %}
+              <div class="d-flex justify-content-center">
+                <button
+                  type="submit"
+                  class="btn btn-primary rounded-pill px-4 py-2 mb-4"
+                  aria-label="Add to cart"
+                >
+                  <i class="fa fa-shopping-bag me-2"></i>
+                  Add to Cart
+                </button>
+              </div>
+              {% else %}
+              <div class="d-flex justify-content-center">
+                <a href="{% url 'userlogin' %}">
+                  <button
+                    type="button"
+                    class="btn btn-primary rounded-pill px-4 py-2 mb-4"
+                    aria-label="Add to cart"
+                  >
+                    <i class="fa fa-shopping-bag me-2"></i>
+                    Login to add product to cart
+                  </button>
+                </a>
+              </div>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#increaseQuantity").on("click", function () {
+      var quantity = parseInt($("#quantity").val());
+      if (quantity < 100) {
+        // Prevent exceeding max limit
+        $("#quantity").val(quantity + 1);
+        $("#quantity").trigger("change"); // Update total
+      }
+    });
+
+    $("#decreaseQuantity").on("click", function () {
+      var quantity = parseInt($("#quantity").val());
+      if (quantity > 1) {
+        // Prevent going below 1
+        $("#quantity").val(quantity - 1);
+        $("#quantity").trigger("change"); // Update total
+      }
+    });
+
+    $("#quantity").on("input change", function () {
+      var quantity = $(this).val();
+      var price = $("#price").val();
+      var total = parseFloat(quantity) * parseFloat(price);
+      $("#total").val(total); // Display total with 2 decimal places
+    });
+  });
+</script>
+<!-- Single Product End -->
+{% endblock %}

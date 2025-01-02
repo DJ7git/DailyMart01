@@ -1,0 +1,51 @@
+{% extends 'aindex.html' %} {% block content2 %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">List of Products</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in productdatainDB %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.productname}}</td>
+          <td>
+            <img src="{{i.productimage.url}}" alt="" style="max-width: 200px; height: 200px;" />
+          </td>
+          <td>{{i.productprice}}</td>
+          <td>{{i.productcategory}}</td>
+          <td>{{i.productdescription}}</td>
+          <td>
+            <a href="{% url 'editproduct' id=i.id %}">
+              <button>Edit</button>
+            </a>
+          </td>
+          <td>
+            <a href="{% url 'deleteproduct' id=i.id %}">
+              <button>Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock %} {% block content1 %} {% endblock %} {% block content3 %} {% endblock %}

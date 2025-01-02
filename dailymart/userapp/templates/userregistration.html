@@ -1,0 +1,103 @@
+{% extends 'userindex.html' %} {% block content1 %} {% endblock %} {% block content2 %}
+<div class="container-fluid fruite py-5">
+  <div class="container py-5">
+    <div class="tab-class text-center">
+      <div class="row g-4">
+        <!-- left column -->
+        <!-- general form elements -->
+        <div class="card card-info">
+          <br />
+          <br />
+          <br />
+          <div class="card-header bg-white border border-0">
+            <h3 class="card-title">User Registration</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form
+            class="form-horizontal"
+            action="{% url 'getuserdata' %}"
+            method="POST"
+          >
+            {% csrf_token %}
+            <div class="card-body">
+              <div class="form-group row">
+                <label for="exampleInputEmail1" class="col-12 text-start"
+                  >Login User Name</label
+                >
+                <div class="col-sm-12">
+                  <input
+                    type="text"
+                    class="form-control bg-light"
+                    id="exampleInputEmail1"
+                    placeholder="Name"
+                    name="username"
+                    required
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="form-group row">
+                <label for="exampleInputPassword1" class="col-12 text-start"
+                  >Password</label
+                >
+                <div class="col-sm-12">
+                  <input
+                    type="password"
+                    class="form-control bg-light"
+                    id="exampleInputPassword1"
+                    placeholder="Password"
+                    name="userpassword"
+                    required
+                  />
+                </div>
+              </div>
+              <br />
+
+              <div class="form-group row">
+                <label for="exampleInputMail1" class="col-12 text-start"
+                  >Email</label
+                >
+                <div class="col-sm-12">
+                  <input
+                    type="email"
+                    class="form-control bg-light"
+                    id="exampleInputMail1"
+                    placeholder="Email"
+                    name="usermail"
+                    required
+                  />
+                </div>
+              </div>
+              <br />
+              <div class="form-group row">
+                <label for="exampleInputPhone1" class="col-12 text-start"
+                  >Phone Number</label
+                >
+                <div class="col-sm-12">
+                  <input
+                    type="number"
+                    class="form-control bg-light"
+                    id="exampleInputPhone1"
+                    placeholder="Phone Number"
+                    name="userphone"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer bg-white border border-0">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+        <!--/.col (left) -->
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

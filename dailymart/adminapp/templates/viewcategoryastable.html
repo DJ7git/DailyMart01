@@ -1,0 +1,45 @@
+{% extends 'aindex.html' %} {% block content2 %}
+
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">List of Categories</h3>
+  </div>
+  <!-- /.card-header -->
+  <div class="card-body p-0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 10px">#</th>
+          <th>Name</th>
+          <th>Image</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in categorydatainDB %}
+        <tr>
+          <td>{{i.id}}</td>
+          <td>{{i.categoryname}}</td>
+          <td>
+            <img src="{{i.categoryimage.url}}" alt="" style="max-width: 200px; height: 200px;" />
+          </td>
+          <td>
+            <a href="{% url 'editcategory' id=i.id %}">
+              <button>Edit</button>
+            </a>
+          </td>
+          <td>
+            <a href="{% url 'deletecategory' id=i.id %}">
+              <button>Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <!-- /.card-body -->
+</div>
+
+{% endblock %} {% block content1 %} {% endblock %} {% block content3 %} {% endblock %}

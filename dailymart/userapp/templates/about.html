@@ -1,0 +1,107 @@
+{% extends 'userindex.html' %} {% block content1 %} {% endblock %} {% block content2 %}
+<!-- Single Product Start -->
+<br />
+<br />
+<br />
+
+<div class="container-fluid py-5 mt-5">
+  <div class="container py-5 border border-5">
+    <div class="row g-4 mb-5">
+      <div class="col-lg-12 col-xl-12">
+        <div class="row g-4 pb-3">
+          <div class="col-lg-12">
+            <h1 class="text-center">About Us</h1>
+            <p>Welcome to Daily Mart!</p>
+            <br />
+            <p>
+              At Daily Mart, we believe shopping should be an enjoyable and
+              effortless experience. Our mission is to bring a diverse selection
+              of high-quality products directly to your doorstep, making it
+              easier than ever to find what you love.
+            </p>
+            <br />
+            <h3>Our Story</h3>
+            <br />
+            <p>
+              Born out of a passion for convenience and variety, Daily Mart
+              started as a small idea to simplify the shopping experience.
+              Today, we are proud to offer a vast array of products of everyday
+              essentials to catered to your lifestyle and needs.
+            </p>
+            <br />
+            <h3>Our Commitment</h3>
+            <br />
+            <p>
+              We are dedicated to providing our customers with exceptional
+              service and a seamless shopping experience. Our team works
+              tirelessly to ensure that every product meets our high standards
+              for quality and value. Plus, we prioritize sustainable practices,
+              striving to minimize our environmental impact with eco-friendly
+              packaging and responsible sourcing.
+            </p>
+            <br />
+            <h3>Why Shop with Us?</h3>
+            <br />
+            <ul>
+              <li>
+                <b>Wide Selection</b>: Explore thousands of products across
+                multiple categories, all in one place.
+              </li>
+
+              <li>
+                <b>Competitive Prices</b>: We work hard to offer you the best
+                prices, ensuring you get the most value for your money.
+              </li>
+
+              <li>
+                <b>Customer-Centric Service</b>: Your satisfaction is our top
+                priority. Our support team is here to assist you with any
+                questions or concerns.
+              </li>
+
+              <li>
+                <b>Secure Shopping</b>: Shop with confidence knowing your
+                information is protected with top-notch security measures.
+              </li>
+            </ul>
+            <br />
+            <h3>Join Our Community</h3>
+            <br />
+            <p>
+              At Daily Mart, we’re more than just a shopping platform—we’re a
+              community. We love hearing from our customers and encourage you to
+              share your feedback, reviews, and experiences. Connect with us on
+              social media and subscribe to our newsletter for the latest
+              updates, exclusive offers, and more!
+            </p>
+            <br />
+            <p>
+              Thank you for choosing Daily Mart. We’re excited to serve you and
+              help you discover amazing products that fit your life!
+            </p>
+            <br />
+            <p>Happy shopping!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#quantity").on("change", function () {
+      var quantity = $("#quantity").val();
+      var price = $("#price").val();
+      var total = parseInt(quantity) * parseInt(price);
+      $("#total").val(total);
+    });
+  });
+</script>
+<!-- Single Product End -->
+{% endblock %}
